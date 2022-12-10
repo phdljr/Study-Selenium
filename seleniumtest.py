@@ -19,10 +19,14 @@ for num in range(1, 28):
     myDynamicElement = myDynamicElement.find_element(By.TAG_NAME, 'span') # 위에서 찾은 div 태그 안에서 span 태그를 탐색
     src = myDynamicElement.get_attribute('style') # 위에서 찾은 span 태그 안에서 style 속성 데이터 가져옴
 
+    myDynamicElement = driver.find_element(By.CLASS_NAME, f'li{num}') # 클래스 이름을 기준으로 태그를 탐색
+    myDynamicElement = myDynamicElement.find_element(By.TAG_NAME, 'span')
+    character = myDynamicElement.text
+
     # style 속성의 문자열을 어느정도 가공하여 딱 url만 가져올 수 있도록 문자열 처리
     src = src[23:src.find(".png")+4]
-    # 파일 이름을 캐릭터 이름으로 저장하기 위해서 캐릭터 이름을 문자열 처리로 가져옴
-    character = src[src.find("images/character/") + 17 : src.find("/img_")]
+    # # 파일 이름을 캐릭터 이름으로 저장하기 위해서 캐릭터 이름을 문자열 처리로 가져옴
+    # character = src[src.find("images/character/") + 17 : src.find("/img_")]
 
     # 이미지 url에 접근해서 데이터를 저장하는 코드
     with urlopen(src) as f:
